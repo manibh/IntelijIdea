@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <!--<jaxws:endpoint id="PhonebookService"-->
+                    <!--implementor="com.PhoneBook.service.PhonebookServiceImpl"-->
+                    <!--address="/com/phonebookservice"/>-->
+
+    <!-- this part is belongs to WSS4J interceptor to intercept End point processing for signing/verification-->
+
+    <jaxws:endpoint id="PhonebookService"
+                    implementor="com.PhoneBook.service.PhonebookServiceImpl"
+                    address="/com/phonebookservice">
+
+
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+                <constructor-arg>
+                    <map>
+                        <entry key="action" value="UsernameToken"/>
+                        <entry key="passwordType" value="PasswordDigest"/>
+                        <entry key="signaturePropFile" value="..."/>
+                        <entry key="passwordCallbackRef">
+                            <ref bean="signPhonebookRequest"/>
+                        </entry>
+
+                    </map>
+                </constructor-arg>
+            </bean>
+        </jaxws:inInterceptors>
+
+    </jaxws:endpoint>
+</beans>

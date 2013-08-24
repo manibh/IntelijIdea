@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PhonebookServiceImplService" targetNamespace="http://service.PhoneBook.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.PhoneBook.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.PhoneBook.com/" elementFormDefault="unqualified" targetNamespace="http://service.PhoneBook.com/" version="1.0">
+<xs:element name="insertRecord" type="tns:insertRecord"/>
+<xs:element name="insertRecordResponse" type="tns:insertRecordResponse"/>
+<xs:element name="searchRecords" type="tns:searchRecords"/>
+<xs:element name="searchRecordsResponse" type="tns:searchRecordsResponse"/>
+<xs:complexType name="searchRecords">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="searchRecordsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:person"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="person">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="number" type="xs:int"/>
+      <xs:element minOccurs="0" name="surname" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="insertRecord">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:person"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="insertRecordResponse">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="insertRecord">
+    <wsdl:part name="parameters" element="tns:insertRecord">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="insertRecordResponse">
+    <wsdl:part name="parameters" element="tns:insertRecordResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchRecordsResponse">
+    <wsdl:part name="parameters" element="tns:searchRecordsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchRecords">
+    <wsdl:part name="parameters" element="tns:searchRecords">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PhonebookService">
+    <wsdl:operation name="searchRecords">
+      <wsdl:input name="searchRecords" message="tns:searchRecords">
+    </wsdl:input>
+      <wsdl:output name="searchRecordsResponse" message="tns:searchRecordsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertRecord">
+      <wsdl:input name="insertRecord" message="tns:insertRecord">
+    </wsdl:input>
+      <wsdl:output name="insertRecordResponse" message="tns:insertRecordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PhonebookServiceImplServiceSoapBinding" type="tns:PhonebookService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="searchRecords">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="searchRecords">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="searchRecordsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertRecord">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="insertRecord">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="insertRecordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PhonebookServiceImplService">
+    <wsdl:port name="PhonebookServiceImplPort" binding="tns:PhonebookServiceImplServiceSoapBinding">
+      <soap:address location="http://localhost:9090/PhonebookServiceImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
