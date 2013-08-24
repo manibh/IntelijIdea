@@ -1,0 +1,73 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+    <!--
+    for spring ready beans
+    <bean id="hello" class="demo.spring.service.HelloWorldImpl" />
+
+    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/HelloWorld" />
+
+    -->
+
+    <!-- this will scan for all xml ctx configuration as /ctx is already defined as source path is not required -->
+
+    <display-name>My Test WebService</display-name>
+
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- for handeling non web service requests, like spring MVC servlets-->
+    <!--<servlet>-->
+    <!--<servlet-name>dispatcherServlet</servlet-name>-->
+    <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+    <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-name>contextConfiguration</param-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-value>/WEB-INF/*.xml</param-value>&ndash;&gt;-->
+    <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>dispatcherServlet</servlet-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/ctx/*.xml</param-value>
+    </context-param>
+
+    <!--<listener>-->
+        <!--<listener-class>-->
+            <!--com.sun.xml.ws.transport.http.servlet.WSServletContextListener-->
+        <!--</listener-class>-->
+    <!--</listener>-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>WebServicePort</servlet-name>-->
+        <!--<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>WebServicePort</servlet-name>-->
+        <!--<url-pattern>/services/*?wsdl</url-pattern>-->
+    <!--</servlet-mapping>-->
+</web-app>
